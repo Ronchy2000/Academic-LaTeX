@@ -1,0 +1,80 @@
+%% Copyright (C) 2009 Yue Wang and Liu Haiyang
+%%  This file may be distributed and/or modified under the
+%%  conditions of the LaTeX Project Public License, either version 1.3
+%%  of this license or (at your option) any later version.
+%%  The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%%  and version 1.3 or later is part of all distributions of LaTeX
+%%  version 2005/12/01 or later.
+%%
+%% macOS Chinese font map loader for pdfTeX and DVIPDFMx
+%% Modified for portable use with Windows fonts
+%% Uses Windows fonts: simsun, simkai, simhei, simfang, simli, simyou
+
+
+\input ifpdf.sty
+
+\ifpdf
+	\pdfmapline{=gbk@UGBK@ <fonts/simsun.ttc}
+	\pdfmapline{=gbksong@UGBK@ <fonts/simsun.ttc}
+	\pdfmapline{=gbkkai@UGBK@ <fonts/simkai.ttf}
+	\pdfmapline{=gbkhei@UGBK@ <fonts/simhei.ttf}
+	\pdfmapline{=gbkfs@UGBK@ <fonts/simfang.ttf}
+	\pdfmapline{=gbkli@UGBK@ <fonts/simli.ttf}
+	\pdfmapline{=gbkyou@UGBK@ <fonts/simyou.ttf}
+
+	\pdfmapline{=cyberb@Unicode@ <fonts/simsun.ttc}
+	\pdfmapline{=unisong@Unicode@ <fonts/simsun.ttc}
+	\pdfmapline{=unikai@Unicode@ <fonts/simkai.ttf}
+	\pdfmapline{=unihei@Unicode@ <fonts/simhei.ttf}
+	\pdfmapline{=unifs@Unicode@ <fonts/simfang.ttf}
+	\pdfmapline{=unili@Unicode@ <fonts/simli.ttf}
+	\pdfmapline{=uniyou@Unicode@ <fonts/simyou.ttf}
+
+	\pdfmapline{=gbksongsl@UGBK@ <fonts/simsun.ttc}
+	\pdfmapline{=gbkkaisl@UGBK@ <fonts/simkai.ttf}
+	\pdfmapline{=gbkheisl@UGBK@ <fonts/simhei.ttf}
+	\pdfmapline{=gbkfssl@UGBK@ <fonts/simfang.ttf}
+	\pdfmapline{=gbklisl@UGBK@ <fonts/simli.ttf}
+	\pdfmapline{=gbkyousl@UGBK@ <fonts/simyou.ttf}
+
+	\pdfmapline{=unisongsl@Unicode@ <fonts/simsun.ttc}
+	\pdfmapline{=unikaisl@Unicode@ <fonts/simkai.ttf}
+	\pdfmapline{=uniheisl@Unicode@ <fonts/simhei.ttf}
+	\pdfmapline{=unifssl@Unicode@ <fonts/simfang.ttf}
+	\pdfmapline{=unilisl@Unicode@ <fonts/simli.ttf}
+	\pdfmapline{=uniyousl@Unicode@ <fonts/simyou.ttf}
+
+\else
+	\special{pdf:mapline + gbk@UGBK@ unicode :0:fonts/simsun.ttc -v 50}
+	\special{pdf:mapline + gbksong@UGBK@ unicode :0:fonts/simsun.ttc -v 50}
+	\special{pdf:mapline + gbkkai@UGBK@ unicode fonts/simkai.ttf -v 70}
+	\special{pdf:mapline + gbkhei@UGBK@ unicode fonts/simhei.ttf -v 150}
+	\special{pdf:mapline + gbkfs@UGBK@ unicode fonts/simfang.ttf -v 50}
+	\special{pdf:mapline + gbkli@UGBK@ unicode fonts/simli.ttf -v 150}
+	\special{pdf:mapline + gbkyou@UGBK@ unicode fonts/simyou.ttf -v 60}
+
+	\special{pdf:mapline + cyberb@Unicode@ unicode :0:fonts/simsun.ttc -v 50}
+	\special{pdf:mapline + unisong@Unicode@ unicode :0:fonts/simsun.ttc -v 50}
+	\special{pdf:mapline + unikai@Unicode@ unicode fonts/simkai.ttf -v 70}
+	\special{pdf:mapline + unihei@Unicode@ unicode fonts/simhei.ttf -v 150}
+	\special{pdf:mapline + unifs@Unicode@ unicode fonts/simfang.ttf -v 50}
+	\special{pdf:mapline + unili@Unicode@ unicode fonts/simli.ttf -v 150}
+	\special{pdf:mapline + uniyou@Unicode@ unicode fonts/simyou.ttf -v 60}
+
+	\special{pdf:mapline + gbksongsl@UGBK@ unicode :0:fonts/simsun.ttc -s .167 -v 50}
+	\special{pdf:mapline + gbkkaisl@UGBK@ unicode fonts/simkai.ttf -s .167 -v 70}
+	\special{pdf:mapline + gbkheisl@UGBK@ unicode fonts/simhei.ttf -s .167 -v 150}
+	\special{pdf:mapline + gbkfssl@UGBK@ unicode fonts/simfang.ttf -s .167 -v 50}
+	\special{pdf:mapline + gbklisl@UGBK@ unicode fonts/simli.ttf -s .167 -v 150}
+	\special{pdf:mapline + gbkyousl@UGBK@ unicode fonts/simyou.ttf -s .167 -v 60}
+
+	\special{pdf:mapline + unisongsl@Unicode@ unicode :0:fonts/simsun.ttc -s .167 -v 50}
+	\special{pdf:mapline + unikaisl@Unicode@ unicode fonts/simkai.ttf -s .167 -v 70}
+	\special{pdf:mapline + uniheisl@Unicode@ unicode fonts/simhei.ttf -s .167 -v 150}
+	\special{pdf:mapline + unifssl@Unicode@ unicode fonts/simfang.ttf -s .167 -v 50}
+	\special{pdf:mapline + unilisl@Unicode@ unicode fonts/simli.ttf -s .167 -v 150}
+	\special{pdf:mapline + uniyousl@Unicode@ unicode fonts/simyou.ttf -s .167 -v 60}
+
+\fi
+\endinput

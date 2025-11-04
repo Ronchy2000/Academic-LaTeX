@@ -1,0 +1,108 @@
+# LaTeX 输出目录
+_output/
+
+# LaTeX 编译生成的 PDF 文件
+*.pdf
+
+# LaTeX 辅助文件
+*.aux
+*.lof
+*.log
+*.lot
+*.fls
+*.out
+*.toc
+*.fmt
+*.fot
+*.cb
+*.cb2
+.*.lb
+
+# LaTeX 中间文件
+*.dvi
+*.xdv
+*.bbl
+*.bcf
+*.blg
+*-blx.aux
+*-blx.bib
+*.run.xml
+
+# LaTeX 索引文件
+*.idx
+*.ilg
+*.ind
+
+# LaTeX 交叉引用
+*.fdb_latexmk
+*.synctex
+*.synctex(busy)
+*.synctex.gz
+*.synctex.gz(busy)
+*.pdfsync
+
+# LaTeX 算法包
+*.alg
+*.loa
+
+# LaTeX 词汇表
+*.acn
+*.acr
+*.glg
+*.glo
+*.gls
+*.glsdefs
+*.lzo
+*.lzs
+*.slg
+*.slo
+*.sls
+
+# LaTeX 导航文件
+*.nav
+*.snm
+*.vrb
+
+# LaTeX beamer
+*.snm
+*.vrb
+*.nav
+
+# LaTeX hyperref
+*.brf
+
+# LaTeX knitr
+*-concordance.tex
+
+# LaTeX sagetex
+*.sagetex.sage
+*.sagetex.py
+*.sagetex.scmd
+
+# LaTeX listings
+*.lol
+
+# macOS 文件
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# macOS 缩略图
+._*
+
+# VS Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# 备份文件
+*~
+*.bak
+*.swp
+*.swo
+
+# PDF 文件（如果不想提交编译结果）
+# *.pdf
