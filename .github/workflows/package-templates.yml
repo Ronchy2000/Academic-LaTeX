@@ -5,6 +5,11 @@ on:
     tags:
       - "v*"
   workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag (e.g. v1.0.0)"
+        required: true
+        type: string
 
 permissions:
   contents: write
@@ -28,13 +33,33 @@ jobs:
           sudo locale-gen en_US.UTF-8
           sudo update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8
 
+      - name: Prepare release metadata
+        id: release
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            tag_input="${{ inputs.tag }}"
+            if [ -z "$tag_input" ]; then
+              echo "Tag input is required when manually dispatching the workflow." >&2
+              exit 1
+            fi
+            tag="$tag_input"
+          else
+            tag="${{ github.ref_name }}"
+          fi
+
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          echo "name=Release $tag" >> "$GITHUB_OUTPUT"
+
       - name: Package templates
         working-directory: repo-content
         run: |
           set -euo pipefail
 
-          mkdir -p ../zips
-          release_notes=../release-notes.md
+          repo_root="$(cd .. && pwd)"
+          zip_dir="$repo_root/zips"
+          release_notes="$repo_root/release-notes.md"
+
+          mkdir -p "$zip_dir"
 
           cat > "$release_notes" <<'EOF'
           # 学术模板发布包
@@ -42,7 +67,7 @@ jobs:
           ## 包含模板
           EOF
 
-          while IFS='|' read -r source_dir zip_name desc_zh desc_en; do
+          while IFS='|' read -r source_dir bundle_name asset_name desc_zh desc_en; do
             [ -z "$source_dir" ] && continue
 
             if [ ! -d "$source_dir" ]; then
@@ -51,25 +76,25 @@ jobs:
             fi
 
             tmp_dir="$(mktemp -d)"
-            bundle_root="$zip_name"
+            bundle_root="$bundle_name"
 
             mkdir -p "$tmp_dir/$bundle_root"
             rsync -a --info=skip0 -- "$source_dir"/ "$tmp_dir/$bundle_root"/
 
             (
               cd "$tmp_dir"
-              zip -r -9 --quiet -UN=UTF8 "../zips/${zip_name}.zip" "$bundle_root"
+              zip -r -9 --quiet -UN=UTF8 "$zip_dir/${asset_name}.zip" "$bundle_root"
             )
 
             rm -rf "$tmp_dir"
 
-            printf ' - %s: %s\n' "$zip_name" "$desc_zh" >> "$release_notes"
+            printf ' - %s.zip（目录：%s）: %s\n' "$asset_name" "$bundle_name" "$desc_zh" >> "$release_notes"
           done <<'LIST'
-          conferences/AAMAS-2024|AAMAS-2024|AAMAS 2024 会议模板|AAMAS 2024 Conference Template
-          journals/IEEE-Transactions|IEEE-Transactions|IEEE Transactions 期刊模板|IEEE Transactions LaTeX Template
-          journals/Elsevier-Neurocomputing|Elsevier-Neurocomputing|Elsevier Neurocomputing 期刊模板|Elsevier Neurocomputing Template
-          journals/计算机学报|计算机学报|《计算机学报》期刊模板|Journal of Computer Science Template
-          journals/控制理论与应用|控制理论与应用|《控制理论与应用》期刊模板|Control Theory & Applications Template
+          conferences/AAMAS-2024|AAMAS-2024|AAMAS-2024|AAMAS 2024 会议模板|AAMAS 2024 Conference Template
+          journals/IEEE-Transactions|IEEE-Transactions|IEEE-Transactions|IEEE Transactions 期刊模板|IEEE Transactions LaTeX Template
+          journals/Elsevier-Neurocomputing|Elsevier-Neurocomputing|Elsevier-Neurocomputing|Elsevier Neurocomputing 期刊模板|Elsevier Neurocomputing Template
+          journals/计算机学报|计算机学报|CJC-Journal|《计算机学报》期刊模板|Journal of Computer Science Template
+          journals/控制理论与应用|控制理论与应用|CTA-Journal|《控制理论与应用》期刊模板|Control Theory & Applications Template
           LIST
 
           cat >> "$release_notes" <<'EOF'
@@ -81,24 +106,32 @@ jobs:
           ## Included Templates
           EOF
 
-          while IFS='|' read -r _ zip_name _ desc_en; do
-            [ -z "$zip_name" ] && continue
-            printf ' - %s: %s\n' "$zip_name" "$desc_en" >> "$release_notes"
+          while IFS='|' read -r _ bundle_name asset_name _ desc_en; do
+            [ -z "$asset_name" ] && continue
+            printf ' - %s.zip (folder: %s): %s\n' "$asset_name" "$bundle_name" "$desc_en" >> "$release_notes"
           done <<'LIST'
-          conferences/AAMAS-2024|AAMAS-2024|AAMAS 2024 会议模板|AAMAS 2024 Conference Template
-          journals/IEEE-Transactions|IEEE-Transactions|IEEE Transactions 期刊模板|IEEE Transactions LaTeX Template
-          journals/Elsevier-Neurocomputing|Elsevier-Neurocomputing|Elsevier Neurocomputing 期刊模板|Elsevier Neurocomputing Template
-          journals/计算机学报|计算机学报|《计算机学报》期刊模板|Journal of Computer Science Template
-          journals/控制理论与应用|控制理论与应用|《控制理论与应用》期刊模板|Control Theory & Applications Template
+          conferences/AAMAS-2024|AAMAS-2024|AAMAS-2024|AAMAS 2024 会议模板|AAMAS 2024 Conference Template
+          journals/IEEE-Transactions|IEEE-Transactions|IEEE-Transactions|IEEE Transactions 期刊模板|IEEE Transactions LaTeX Template
+          journals/Elsevier-Neurocomputing|Elsevier-Neurocomputing|Elsevier-Neurocomputing|Elsevier Neurocomputing 期刊模板|Elsevier Neurocomputing Template
+          journals/计算机学报|计算机学报|CJC-Journal|《计算机学报》期刊模板|Journal of Computer Science Template
+          journals/控制理论与应用|控制理论与应用|CTA-Journal|《控制理论与应用》期刊模板|Control Theory & Applications Template
           LIST
 
-      - name: Upload to Release
-        uses: softprops/action-gh-release@v1
-        with:
-          tag_name: ${{ github.ref_name }}
-          name: Release ${{ github.ref_name }}
-          body_path: release-notes.md
-          files: |
-            zips/*.zip
+      - name: Publish release
+        working-directory: repo-content
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_TAG: ${{ steps.release.outputs.tag }}
+          RELEASE_NAME: ${{ steps.release.outputs.name }}
+        run: |
+          set -euo pipefail
+
+          cd ..
+
+          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            gh release edit "$RELEASE_TAG" --title "$RELEASE_NAME" --notes-file release-notes.md
+            gh release upload "$RELEASE_TAG" zips/*.zip --clobber
+          else
+            gh release create "$RELEASE_TAG" zips/*.zip --title "$RELEASE_NAME" --notes-file release-notes.md
+          fi

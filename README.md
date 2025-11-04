@@ -19,8 +19,8 @@
 ## Release 下载
 
 - 访问 [GitHub Releases](https://github.com/Ronchy2000/Academic-LaTeX/releases) 可直接获取最新打包模板，无需下载整个仓库。
-- 工作流 `Package Templates`（推送 `v*` 标签或手动触发）会自动打包 `conferences/AAMAS-2024` 与 `journals` 下的模板，并生成对应的中英文说明。
-- 压缩包文件名与内部目录统一使用 UTF-8 编码，包含中文模板名称（如 `控制理论与应用.zip`）时也能正确显示。
+- 工作流 `Package Templates`（推送 `v*` 标签或手动触发）会自动打包 `conferences/AAMAS-2024` 与 `journals` 下的模板，并生成对应的中英文说明；手动触发时请填写发布使用的 tag（如 `v1.0.0`）。
+- 由于 GitHub API 不支持中文资产文件名，Release 中的压缩包文件名采用英文或缩写，但压缩包内部的目录名称保持原始中文（如 `控制理论与应用`），下载解压后即可获得正确的中文结构。
 - 如果新增模板目录，请同步更新工作流中的打包列表，以便在发布时一并生成压缩包。
 
 ## 使用方式
