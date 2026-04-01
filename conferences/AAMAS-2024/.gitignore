@@ -1,0 +1,95 @@
+# =========================
+# OS generated files
+# =========================
+*.pdf
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100/
+.Trashes/
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+
+
+# =========================
+# Editor / IDE files
+# =========================
+
+# VS Code
+.vscode/
+.history/
+
+# JetBrains / PyCharm
+.idea/
+*.iml
+*.ipr
+*.iws
+
+
+# =========================
+# Cache and temporary files
+# =========================
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Common cache/temp directories
+.cache/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.nox/
+.tox/
+tmp/
+temp/
+
+# Logs
+*.log
+
+# Swap files
+*.swp
+*.swo
+
+
+# =========================
+# LaTeX build artifacts
+# =========================
+
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.idx
+*.ilg
+*.ind
+*.lof
+*.log
+*.lot
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
+*.xdv
+
+# Local output/temp folders for templates
+_output/
+**/_output/
+
+# Temporary template files in bundled archives
+ctextemp_*
+*.tex.bak
+*.synctex
+*.synctex(busy)

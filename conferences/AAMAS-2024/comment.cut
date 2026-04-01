@@ -1,0 +1,4 @@
+If you wish to include any acknowledgments in your paper (e.g., to
+people or funding agencies), please do so using the `\texttt{acks}'
+environment. Note that the text of your acknowledgments will be omitted
+if you compile your document with the `\texttt{anonymous}' option.
