@@ -95,6 +95,7 @@ jobs:
           journals/Elsevier-Neurocomputing|Elsevier-Neurocomputing|Elsevier-Neurocomputing|Elsevier Neurocomputing 期刊模板|Elsevier Neurocomputing Template
           journals/计算机学报|计算机学报|CJC-Journal|《计算机学报》期刊模板|Journal of Computer Science Template
           journals/控制理论与应用|控制理论与应用|CTA-Journal|《控制理论与应用》期刊模板|Control Theory & Applications Template
+          journals/自动化学报（中文版）|自动化学报（中文版）|AAS-CN-Journal|《自动化学报（中文版）》期刊模板|Acta Automatica Sinica (Chinese Edition) Template
           LIST
 
           cat >> "$release_notes" <<'EOF'
@@ -115,6 +116,7 @@ jobs:
           journals/Elsevier-Neurocomputing|Elsevier-Neurocomputing|Elsevier-Neurocomputing|Elsevier Neurocomputing 期刊模板|Elsevier Neurocomputing Template
           journals/计算机学报|计算机学报|CJC-Journal|《计算机学报》期刊模板|Journal of Computer Science Template
           journals/控制理论与应用|控制理论与应用|CTA-Journal|《控制理论与应用》期刊模板|Control Theory & Applications Template
+          journals/自动化学报（中文版）|自动化学报（中文版）|AAS-CN-Journal|《自动化学报（中文版）》期刊模板|Acta Automatica Sinica (Chinese Edition) Template
           LIST
 
       - name: Publish release

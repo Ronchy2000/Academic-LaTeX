@@ -1,0 +1,13 @@
+\documentclass{aas}
+\usepackage{multicol}
+\usepackage{psfig}
+\usepackage{subfigure}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{url}
+\usepackage{ccaption}
+\usepackage{booktabs} % 
